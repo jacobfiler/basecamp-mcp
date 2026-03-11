@@ -1,11 +1,11 @@
-# fga-basecamp-mcp
+# basecamp-mcp
 
 Open-source MCP server for Basecamp. Lets Claude (Desktop & Code) read Basecamp projects, messages, todos, and documents using any user's own OAuth credentials.
 
 ## Project Structure
 
 ```
-src/fga_basecamp_mcp/
+src/basecamp_mcp/
 ├── __init__.py     # Version
 ├── server.py       # MCP server + tool definitions (entry point)
 ├── client.py       # Basecamp API client (httpx, token refresh)
@@ -22,8 +22,8 @@ src/fga_basecamp_mcp/
 
 ## Entry Points
 
-- `fga-basecamp-mcp` — runs MCP server (stdio transport)
-- `fga-basecamp-mcp auth` — interactive OAuth setup
+- `basecamp-mcp` — runs MCP server (stdio transport)
+- `basecamp-mcp auth` — interactive OAuth setup
 
 ## V1 Tools (Read-Only)
 
@@ -33,8 +33,8 @@ list_projects, get_project, list_messages, read_message, list_todolists, list_to
 
 ```bash
 pip install -e .
-fga-basecamp-mcp auth   # one-time setup
-fga-basecamp-mcp        # run server
+basecamp-mcp auth   # one-time setup
+basecamp-mcp        # run server
 ```
 
 ## Basecamp API Notes

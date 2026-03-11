@@ -1,4 +1,4 @@
-# fga-basecamp-mcp
+# basecamp-mcp
 
 An MCP (Model Context Protocol) server that gives Claude read access to your Basecamp account. Works with Claude Desktop, Claude Code, and any MCP-compatible client.
 
@@ -15,7 +15,7 @@ You need to register an integration with Basecamp so the MCP server can access y
 3. Fill in the form:
    - **Name of your application:** `Basecamp MCP` (or whatever you like)
    - **Company/organization:** Your company name
-   - **Website URL:** `https://github.com/jacobfiler/fga-basecamp-mcp` (or your own URL)
+   - **Website URL:** `https://github.com/jacobfiler/basecamp-mcp` (or your own URL)
    - **Redirect URI:** `http://localhost:8000/callback` — **this must be exact**
 4. Click **"Register this app"**
 5. You'll see your **Client ID** and **Client Secret** — keep this page open, you'll need them next
@@ -23,19 +23,19 @@ You need to register an integration with Basecamp so the MCP server can access y
 ### 2. Install
 
 ```bash
-pip3 install fga-basecamp-mcp
+pip3 install basecamp-mcp
 ```
 
 Or install from source:
 
 ```bash
-pip3 install git+https://github.com/jacobfiler/fga-basecamp-mcp.git
+pip3 install git+https://github.com/jacobfiler/basecamp-mcp.git
 ```
 
 ### 3. Authorize
 
 ```bash
-fga-basecamp-mcp auth
+basecamp-mcp auth
 ```
 
 This will:
@@ -58,7 +58,7 @@ Add the basecamp server (merge with any existing `mcpServers`):
 {
   "mcpServers": {
     "basecamp": {
-      "command": "fga-basecamp-mcp",
+      "command": "basecamp-mcp",
       "args": []
     }
   }
@@ -99,7 +99,7 @@ Ask Claude things like:
 ```
 ~/.config/basecamp-mcp/config.json  (your credentials)
      |
-fga-basecamp-mcp (MCP stdio server)
+basecamp-mcp (MCP stdio server)
      |
 Basecamp API (https://3.basecampapi.com)
 ```
@@ -112,15 +112,15 @@ Basecamp API (https://3.basecampapi.com)
 ## Development
 
 ```bash
-git clone https://github.com/jacobfiler/fga-basecamp-mcp.git
-cd fga-basecamp-mcp
+git clone https://github.com/jacobfiler/basecamp-mcp.git
+cd basecamp-mcp
 pip install -e .
 
 # Run auth flow
-fga-basecamp-mcp auth
+basecamp-mcp auth
 
 # Run server directly
-fga-basecamp-mcp
+basecamp-mcp
 ```
 
 ## License

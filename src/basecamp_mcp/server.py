@@ -24,7 +24,7 @@ def _get_client() -> BasecampClient:
     if _client is None:
         config = load_config()
         if not config:
-            raise RuntimeError("Not configured. Run `fga-basecamp-mcp auth` first.")
+            raise RuntimeError("Not configured. Run `basecamp-mcp auth` first.")
         _client = BasecampClient(config)
     return _client
 

@@ -1,11 +1,10 @@
 [project]
-name = "fga-basecamp-mcp"
+name = "basecamp-mcp"
 version = "0.1.0"
-description = "Basecamp MCP server for Claude — read and query Basecamp with your own API access"
+description = "Basecamp MCP server for Claude — read and search Basecamp with your own API access"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
-authors = [{ name = "Jacob Filer", email = "jacob@thefga.org" }]
 keywords = ["basecamp", "mcp", "claude", "ai"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -21,11 +20,11 @@ dependencies = [
 ]
 
 [project.scripts]
-fga-basecamp-mcp = "fga_basecamp_mcp.server:main"
+basecamp-mcp = "basecamp_mcp.server:main"
 
 [project.urls]
-Homepage = "https://github.com/jacobfiler/fga-basecamp-mcp"
-Issues = "https://github.com/jacobfiler/fga-basecamp-mcp/issues"
+Homepage = "https://github.com/jacobfiler/basecamp-mcp"
+Issues = "https://github.com/jacobfiler/basecamp-mcp/issues"
 
 [build-system]
 requires = ["hatchling"]

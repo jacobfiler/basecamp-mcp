@@ -29,7 +29,7 @@ def run_auth_flow() -> None:
     print("  3. Fill in the form:")
     print("     - Name: Basecamp MCP (or anything you like)")
     print("     - Company: Your company name")
-    print("     - Website: https://github.com/jacobfiler/fga-basecamp-mcp")
+    print("     - Website: https://github.com/jacobfiler/basecamp-mcp")
     print(f"     - Redirect URI: {REDIRECT_URI}  <-- must be exact")
     print('  4. Click "Register this app"')
     print("  5. Copy the Client ID and Client Secret shown on the next page")
@@ -223,12 +223,12 @@ def _configure_claude_desktop() -> None:
 
     # Find the executable — prefer uvx, fall back to direct command
     uvx_path = shutil.which("uvx")
-    direct_path = shutil.which("fga-basecamp-mcp")
+    direct_path = shutil.which("basecamp-mcp")
 
     if uvx_path:
         basecamp_server = {
             "command": uvx_path,
-            "args": ["fga-basecamp-mcp"],
+            "args": ["basecamp-mcp"],
         }
     elif direct_path:
         basecamp_server = {
@@ -237,7 +237,7 @@ def _configure_claude_desktop() -> None:
         }
     else:
         print(
-            "\nCould not find fga-basecamp-mcp in PATH — skipping Claude Desktop auto-config."
+            "\nCould not find basecamp-mcp in PATH — skipping Claude Desktop auto-config."
         )
         return
 
