@@ -24,8 +24,8 @@ dependencies = [
 fga-basecamp-mcp = "fga_basecamp_mcp.server:main"
 
 [project.urls]
-Homepage = "https://github.com/FGA-Org/fga-basecamp-mcp"
-Issues = "https://github.com/FGA-Org/fga-basecamp-mcp/issues"
+Homepage = "https://github.com/jacobfiler/fga-basecamp-mcp"
+Issues = "https://github.com/jacobfiler/fga-basecamp-mcp/issues"
 
 [build-system]
 requires = ["hatchling"]

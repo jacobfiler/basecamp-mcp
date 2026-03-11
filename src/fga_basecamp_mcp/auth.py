@@ -29,7 +29,7 @@ def run_auth_flow() -> None:
     print("  3. Fill in the form:")
     print("     - Name: Basecamp MCP (or anything you like)")
     print("     - Company: Your company name")
-    print("     - Website: https://github.com/FGA-Org/fga-basecamp-mcp")
+    print("     - Website: https://github.com/jacobfiler/fga-basecamp-mcp")
     print(f"     - Redirect URI: {REDIRECT_URI}  <-- must be exact")
     print('  4. Click "Register this app"')
     print("  5. Copy the Client ID and Client Secret shown on the next page")
