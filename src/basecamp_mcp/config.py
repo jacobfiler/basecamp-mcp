@@ -2,12 +2,29 @@
 
 import json
 import logging
+import os
+import platform
 from datetime import datetime
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
-CONFIG_DIR = Path.home() / ".config" / "basecamp-mcp"
+
+def _config_dir() -> Path:
+    """Platform-appropriate config directory."""
+    system = platform.system()
+    if system == "Windows":
+        return Path(os.environ.get("APPDATA", Path.home())) / "basecamp-mcp"
+    if system == "Darwin":
+        return Path.home() / ".config" / "basecamp-mcp"
+    # Linux / other
+    return (
+        Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
+        / "basecamp-mcp"
+    )
+
+
+CONFIG_DIR = _config_dir()
 CONFIG_FILE = CONFIG_DIR / "config.json"
 
 
@@ -26,8 +43,9 @@ def save_config(config: dict) -> None:
     """Save config to ~/.config/basecamp-mcp/config.json."""
     CONFIG_DIR.mkdir(parents=True, exist_ok=True)
     CONFIG_FILE.write_text(json.dumps(config, indent=2) + "\n")
-    # Restrict permissions to owner only
-    CONFIG_FILE.chmod(0o600)
+    # Restrict permissions to owner only (no-op on Windows)
+    if platform.system() != "Windows":
+        CONFIG_FILE.chmod(0o600)
 
 
 def _update_config(updates: dict) -> None:
