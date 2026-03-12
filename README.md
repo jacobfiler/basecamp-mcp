@@ -6,30 +6,29 @@ An MCP (Model Context Protocol) server that gives Claude read access to your Bas
 
 ## Setup
 
-### 1. Register a Basecamp OAuth App
+### 1. Register a Basecamp OAuth App (once per team)
 
-You need to register an integration with Basecamp so the MCP server can access your account. This only takes a minute.
+Someone on your team registers an OAuth app with Basecamp. Everyone else can reuse the same Client ID and Secret — each person authorizes their own account separately.
 
 1. Go to [launchpad.37signals.com/integrations](https://launchpad.37signals.com/integrations) and log in with your Basecamp account
 2. Click **"Register another application"**
 3. Fill in the form:
-   - **Name of your application:** `Basecamp MCP` (or whatever you like)
-   - **Company/organization:** Your company name
-   - **Website URL:** `https://github.com/jacobfiler/basecamp-mcp` (or your own URL)
-   - **Redirect URI:** `http://localhost:8000/callback` — **this must be exact**
+   - **Name:** `Basecamp MCP` (or whatever you like)
+   - **Company:** Your company name
+   - **Website URL:** `https://github.com/jacobfiler/basecamp-mcp`
+   - **Redirect URI:** `http://localhost:8000/callback` — **must be exact**
 4. Click **"Register this app"**
-5. You'll see your **Client ID** and **Client Secret** — keep this page open, you'll need them next
+5. You'll see your **Client ID** and **Client Secret** — share these with your team
 
 ### 2. Install
 
 ```bash
-pip3 install basecamp-mcp
+pip install basecamp-mcp
 ```
 
-Or install from source:
-
+**Windows:**
 ```bash
-pip3 install git+https://github.com/jacobfiler/basecamp-mcp.git
+py -m pip install basecamp-mcp
 ```
 
 ### 3. Authorize
@@ -38,10 +37,15 @@ pip3 install git+https://github.com/jacobfiler/basecamp-mcp.git
 basecamp-mcp auth
 ```
 
+**Windows** (if `basecamp-mcp` isn't on PATH):
+```bash
+py -m basecamp_mcp.server auth
+```
+
 This will:
 1. Ask for the Client ID and Client Secret from step 1
 2. Open your browser to authorize with Basecamp — click **"Yes, I'll allow access"**
-3. Save your tokens locally to `~/.config/basecamp-mcp/config.json`
+3. Save your tokens locally (`~/.config/basecamp-mcp/` on Mac/Linux, `%APPDATA%\basecamp-mcp\` on Windows)
 4. Automatically configure Claude Desktop (if installed)
 
 That's it! Restart Claude Desktop and your Basecamp tools are ready.
@@ -94,20 +98,31 @@ Ask Claude things like:
 | `list_documents` | List docs in a vault folder |
 | `read_document` | Read a document's content |
 
+## Optional: Document Search
+
+If you have a document ingestion service that indexes `.docx` files from Basecamp, you can connect it for full-text search:
+
+```bash
+basecamp-mcp connect-docs
+```
+
+This adds two additional tools: `search_document_content` and `document_stats`.
+
 ## How It Works
 
 ```
-~/.config/basecamp-mcp/config.json  (your credentials)
+Config file  (your credentials, never shared)
      |
-basecamp-mcp (MCP stdio server)
+basecamp-mcp (MCP stdio server, runs locally)
      |
 Basecamp API (https://3.basecampapi.com)
 ```
 
 - Each user runs their own instance with their own OAuth tokens
+- The Client ID/Secret identify the app, not the user — safe to share across a team
 - No shared server — credentials never leave your machine
 - Tokens auto-refresh when they expire (access tokens last 2 weeks, refresh tokens last 10 years)
-- Search works by crawling vault folders (3 levels deep) and keyword-matching titles
+- Config stored at `~/.config/basecamp-mcp/` (Mac/Linux) or `%APPDATA%\basecamp-mcp\` (Windows)
 
 ## Development
 
