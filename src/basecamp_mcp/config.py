@@ -66,6 +66,20 @@ def save_config(config: dict) -> None:
         CONFIG_FILE.chmod(0o600)
 
 
+@contextmanager
+def _config_lock():
+    """Advisory file lock to prevent concurrent config writes."""
+    lock_path = CONFIG_DIR / "config.lock"
+    CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+    lock_fd = open(lock_path, "w")
+    try:
+        fcntl.flock(lock_fd, fcntl.LOCK_EX)
+        yield
+    finally:
+        fcntl.flock(lock_fd, fcntl.LOCK_UN)
+        lock_fd.close()
+
+
 def _update_config(updates: dict) -> None:
     """Load config, merge updates, and save with file locking."""
     with _config_lock():
